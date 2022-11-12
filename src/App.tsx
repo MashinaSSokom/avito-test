@@ -8,7 +8,9 @@ function App() {
     return (
         <Layout>
             <Navbar/>
-            <AppRouter/>
+            <Layout.Content>
+                <AppRouter/>
+            </Layout.Content>
         </Layout>
     );
 }
