@@ -1,25 +1,33 @@
 import {IStory} from "../../../models/IStory";
 
 export interface StoryState {
-    story: IStory;
+    stories: IStory[];
+    error: string;
     isLoading: boolean;
 }
 
 export enum StoryActionEnum {
-    SET_STORY = 'SET_STORY',
+    SET_STORIES = 'SET_STORIES',
     SET_IS_LOADING = 'SET_IS_LOADING',
+    SET_ERROR = 'SET_ERROR'
 }
 
-interface SetStoryAction {
-    type: StoryActionEnum.SET_STORY;
-    payload: IStory;
+export interface SetStoriesAction {
+    type: StoryActionEnum.SET_STORIES;
+    payload: IStory[];
 }
 
-interface SetIsLoadingAction {
+export interface SetIsLoadingAction {
     type: StoryActionEnum.SET_IS_LOADING;
     payload: boolean;
 }
 
+export interface SetErrorAction {
+    type: StoryActionEnum.SET_ERROR;
+    payload: string;
+}
+
 export type StoryAction =
-    SetStoryAction |
-    SetIsLoadingAction
+    SetStoriesAction |
+    SetIsLoadingAction |
+    SetErrorAction
