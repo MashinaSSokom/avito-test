@@ -7,6 +7,7 @@ export interface IStory {
     descendants: number;
     title: string;
     url: string;
+    kids?: number[]
 }
 
 export interface IStoryIdList {
