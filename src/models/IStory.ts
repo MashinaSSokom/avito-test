@@ -11,5 +11,5 @@ export interface IStory {
 }
 
 export interface IStoryIdList {
-    id: [number]
+    id: number[]
 }
