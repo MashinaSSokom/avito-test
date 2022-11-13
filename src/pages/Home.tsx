@@ -8,7 +8,7 @@ import {calcDate} from "../store/utils/calcDate";
 
 const Home: FC = () => {
     const history = useHistory()
-    const {fetchStories, setCurrentStoryStory} = useActions()
+    const {fetchStories, setCurrentStory} = useActions()
     const {stories, isLoading} = useTypedSelector(state => state.storyReducer)
 
     useEffect(() => {
@@ -50,7 +50,7 @@ const Home: FC = () => {
                                 <Card className={'story-card'}>
                                     <p className={'story-card__title'}
                                        onClick={() => {
-                                           setCurrentStoryStory(story)
+                                           setCurrentStory(story)
                                            history.push(`/story/${story.id}`
                                        )}}
                                     >
