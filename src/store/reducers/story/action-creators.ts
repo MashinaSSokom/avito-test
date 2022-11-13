@@ -6,7 +6,7 @@ import axios from "axios";
 export const StoryActionCreators = {
     setIsLoading: (payload: boolean):SetIsLoadingAction  => ({type: StoryActionEnum.SET_IS_LOADING, payload: payload}),
     setError: (payload: string): SetErrorAction => ({type: StoryActionEnum.SET_ERROR, payload: payload}),
-    setCurrentStoryStory: (payload: IStory): SetCurrentStoryAction => ({type: StoryActionEnum.SET_CURRENT_STORY, payload}),
+    setCurrentStory: (payload: IStory): SetCurrentStoryAction => ({type: StoryActionEnum.SET_CURRENT_STORY, payload}),
     setStories: (payload: IStory[]): SetStoriesAction => ({type: StoryActionEnum.SET_STORIES, payload}),
     fetchStories: () => async (dispatch: AppDispatch, getState: RootState) => {
         try {
