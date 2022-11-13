@@ -10,7 +10,6 @@ export const StoryActionCreators = {
     setStories: (payload: IStory[]): SetStoriesAction => ({type: StoryActionEnum.SET_STORIES, payload}),
     fetchStories: () => async (dispatch: AppDispatch, getState: RootState) => {
         try {
-            // console.log('Подгрузка историй!')
             dispatch(StoryActionCreators.setIsLoading(true))
             const stories = []
             const res = await axios.get<IStoryIdList[]>('https://hacker-news.firebaseio.com/v0/newstories.json')

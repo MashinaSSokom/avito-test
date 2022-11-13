@@ -31,16 +31,16 @@ export const CommentActionCreators = {
             dispatch(CommentActionCreators.setCurrentCommentTree(rootCommentTree))
             dispatch(CommentActionCreators.setIsLoading(false))
         } catch (e) {
+            //TODO добавить полее error и подгружать в него ошибку, если не удалось загрузить комментарии
             console.log(e)
         }
     },
-    fetchComment: (id: number) => async (dispatch: AppDispatch) => {
-        try {
-            const res = await axios.get(`https://hacker-news.firebaseio.com/v0/item/${id}.json`)
-            console.log(res)
-        } catch (e) {
-            console.log(e)
-        }
-    }
+    // fetchComment: (id: number) => async (dispatch: AppDispatch) => {
+    //     try {
+    //         const res = await axios.get(`https://hacker-news.firebaseio.com/v0/item/${id}.json`)
+    //     } catch (e) {
+    //         console.log(e)
+    //     }
+    // }
 }
 

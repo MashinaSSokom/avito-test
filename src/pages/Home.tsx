@@ -12,15 +12,12 @@ const Home: FC = () => {
     const {stories, isLoading} = useTypedSelector(state => state.storyReducer)
 
     useEffect(() => {
-        console.log('Первый рендер!')
         if (isLoading === false) {
             fetchStories()
         }
     }, [])
     useEffect(() => {
         const interval = setInterval(() => {
-            console.log('Интервальное обновление!')
-            // console.log('Сравнение', isLoading === false)
             if (isLoading === false) {
                 fetchStories()
             }
