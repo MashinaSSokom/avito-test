@@ -3,27 +3,33 @@ import {useHistory} from "react-router-dom";
 import {useActions} from "../hooks/useActions";
 import {useTypedSelector} from "../hooks/useTypedSelector";
 import {Content} from "antd/es/layout/layout";
-import {Button, Card, Col, Comment, Row, Tree} from "antd";
+import {Button, Card, Col, Comment, Layout, Row, Tree} from "antd";
 import {calcDate} from "../store/utils/calcDate";
+import Kid from "../components/Kid";
+import ReactDOM from "react-dom/client";
+import {createMarkup} from "../store/utils/createMarkup";
+
 
 const Story: FC = () => {
+    const [renderForParentIds, setRenderForParentIds] = useState([] as number[])
     const history = useHistory()
     const {currentStory} = useTypedSelector(state => state.storyReducer)
-    const {currentCommentsTree} = useTypedSelector(state => state.commentReducer)
-    const {fetchRootComments} = useActions()
+    const {currentCommentsTree, commentsIsLoading} = useTypedSelector(state => state.commentReducer)
+    const {fetchRootComments, setCurrentCommentTree} = useActions()
     useEffect(() => {
         console.log('Стартовое древо комментариев', currentCommentsTree)
         if (currentStory.kids) {
             console.log('Будем искать корневые комментарии', currentStory.kids)
             fetchRootComments(currentStory.kids)
+        } else {
+            setCurrentCommentTree([])
         }
     }, [])
-
     return (
-        <div>
+        <Layout>
             <Content style={{
                 padding: '0 50px',
-                height: 'calc(100vh - 64px)'
+                height: 'calc(100% - 64px)'
             }}>
                 <Button onClick={() => history.goBack()}
                         style={{
@@ -46,24 +52,45 @@ const Story: FC = () => {
                         </Card>
                     </Col>
                     <Col span={24}>
-                        {currentCommentsTree.map(comment =>
-                            <Comment content={comment.text}
-                                     datetime={<span>{calcDate(comment.time)}</span>}
-                                     author={comment.by}
-                            >
-                            </Comment>
-                        )}
+                        {
+                            (!commentsIsLoading &&
+                                currentCommentsTree.map(comment =>
+                                    <Comment content={<div dangerouslySetInnerHTML={createMarkup(comment.text)}/>}
+                                             datetime={<span>{calcDate(comment.time)}</span>}
+                                             author={comment.by}
+                                             key={comment.id}>
+                                        {
+                                            comment.kids &&
+                                            ((
+                                                    !renderForParentIds.includes(comment.id) &&
+
+                                                    <Button
+                                                        onClick={() => setRenderForParentIds([...renderForParentIds, comment.id])}>
+                                                        Подгрузить комментарии
+                                                    </Button>
+                                                )
+                                                ||
+                                                (
+                                                    comment.kids.map(kidId =>
+                                                        <Kid key={kidId}
+                                                             commentId={kidId}
+                                                        />
+                                                    )
+                                                ))
+                                        }
+                                    </Comment>
+                                )
+                            ) ||
+                            <p>Комментарии загружаются...</p>
+                        }
                     </Col>
                 </Row>
             </Content>
-        </div>
+        </Layout>
     );
 };
 
 export default Story;
 
 
-// TODO список комментариев в виде дерева
-// Корневые комментарии подгружаются сразу же при входе на страницу, вложенные - по клику на корневой
-// На странице должна быть кнопка для принудительного обновления списка комментариев
-// На странице должна быть кнопка для возврата к списку новостей
+// TODO На странице должна быть кнопка для принудительного обновления списка комментариев
