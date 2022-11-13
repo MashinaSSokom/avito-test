@@ -4,10 +4,11 @@ import {useTypedSelector} from "../hooks/useTypedSelector";
 import {Button, Card, Col, Row} from "antd";
 import {Content} from "antd/es/layout/layout";
 import {useHistory} from "react-router-dom";
+import {calcDate} from "../store/utils/calcDate";
 
 const Home: FC = () => {
     const history = useHistory()
-    const {fetchStories} = useActions()
+    const {fetchStories, setCurrentStoryStory} = useActions()
     const {stories, isLoading} = useTypedSelector(state => state.storyReducer)
 
     useEffect(() => {
@@ -31,11 +32,6 @@ const Home: FC = () => {
         fetchStories()
     }
 
-    const calcDate = (unixTime: number) => {
-        console.log(unixTime)
-        return new Date(unixTime*1000).toLocaleString('ru-RU')
-    }
-
     return (
         <Content style={{padding: '0 50px'}}>
             <div className={'stories'}>
@@ -53,11 +49,14 @@ const Home: FC = () => {
                             <Col key={story.id} span={24}>
                                 <Card className={'story-card'}>
                                     <p className={'story-card__title'}
-                                       onClick={() => history.push(`/story/${story.id}`)}
+                                       onClick={() => {
+                                           setCurrentStoryStory(story)
+                                           history.push(`/story/${story.id}`
+                                       )}}
                                     >
                                         Название: <span> {story.title} </span></p>
                                     <p className={'story-card__by'}>Автор: {story.by}</p>
-                                    <p className={'story-card__descendants'}>Комментариев: {story.descendants}</p>
+                                    <p className={'story-card__descendants'}>Комментарии: {story.descendants}</p>
                                     <p className={'story-card__score'}>Рейтинг: {story.score}</p>
                                     <p className={'story-card__score'}>Дата публикации: {calcDate(story.time)}</p>
                                 </Card>
