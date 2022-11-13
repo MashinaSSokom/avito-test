@@ -17,7 +17,6 @@ const Story: FC = () => {
     const {currentCommentsTree, commentsIsLoading} = useTypedSelector(state => state.commentReducer)
     const {fetchRootComments, setCurrentCommentTree} = useActions()
     useEffect(() => {
-        console.log('Стартовое древо комментариев', currentCommentsTree)
         if (currentStory.kids) {
             fetchRootComments(currentStory.kids)
         } else {
@@ -31,7 +30,10 @@ const Story: FC = () => {
         }
     }
     return (
-        <Layout>
+        <Layout style={{
+            height: 'calc(100vh + 100%)',
+            minHeight: '100vh'
+        }}>
             <Content style={{
                 padding: '0 50px',
                 height: 'calc(100% - 64px)'
@@ -102,6 +104,3 @@ const Story: FC = () => {
 };
 
 export default Story;
-
-
-// TODO На странице должна быть кнопка для принудительного обновления списка комментариев
