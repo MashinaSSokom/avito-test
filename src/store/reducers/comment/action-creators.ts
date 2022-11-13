@@ -1,4 +1,4 @@
-import {CommentActionEnum, SetCurrentCommentTreeAction} from "./types";
+import {CommentActionEnum, SetCurrentCommentTreeAction, SetCommentsIsLoadingAction} from "./types";
 import {AppDispatch} from "../../index";
 import axios from "axios";
 import {IComment} from "../../../models/IComment";
@@ -8,8 +8,13 @@ export const CommentActionCreators = {
         type: CommentActionEnum.SET_CURRENT_COMMENT_TREE,
         payload: payload
     }),
+    setIsLoading: (payload: boolean): SetCommentsIsLoadingAction => ({
+        type: CommentActionEnum.SET_COMMENTS_IS_LOADING,
+        payload: payload
+    }),
     fetchRootComments: (ids: number[]) => async (dispatch: AppDispatch) => {
         try {
+            dispatch(CommentActionCreators.setIsLoading(true))
             const rootCommentTree = []
             for (const id of ids) {
                 const res = await axios.get<IComment>(`https://hacker-news.firebaseio.com/v0/item/${id}.json`)
@@ -23,8 +28,8 @@ export const CommentActionCreators = {
                     kids: comment.kids
                 })
             }
-            console.log(rootCommentTree)
             dispatch(CommentActionCreators.setCurrentCommentTree(rootCommentTree))
+            dispatch(CommentActionCreators.setIsLoading(false))
         } catch (e) {
             console.log(e)
         }
