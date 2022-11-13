@@ -7,7 +7,7 @@ const Navbar = () => {
     let history = useHistory()
 
     return (
-        <Layout.Header>
+        <Layout.Header className={'navbar'}>
             <Row justify={'start'}>
                 <Menu theme={"dark"} mode={"horizontal"} selectable={false}>
                     <Menu.Item onClick={() => history.push(RouteNames.HOME)} key={1}>

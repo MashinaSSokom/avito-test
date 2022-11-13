@@ -1,5 +1,8 @@
 import storyReducer from "./story/storyReducer";
 
-export default{
+
+const reducers = {
     storyReducer
 }
+
+export default reducers

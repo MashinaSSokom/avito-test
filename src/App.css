@@ -1,1 +1,29 @@
 @import "~antd/dist/antd.css";
+
+*,
+*:after,
+*:before {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    margin-bottom: 20px;
+}
+
+.story-card{
+
+}
+
+.story-card__title span{
+    cursor: pointer;
+    color: #0000EE;
+    text-decoration: #0000EE underline;
+}
+.story-card__title span:visited{
+    cursor: pointer;
+    color: #551A8B;
+    text-decoration: #551A8B underline;
+}
+

@@ -1,12 +1,12 @@
 export interface IStory {
-    id: Number;
-    type: String;
-    by: String;
-    time: Number;
-    score: Number;
-    descendants: Number;
-    title: String;
-    url: String;
+    id: number;
+    type: string;
+    by: string;
+    time: number;
+    score: number;
+    descendants: number;
+    title: string;
+    url: string;
 }
 
 export interface IStoryIdList {
