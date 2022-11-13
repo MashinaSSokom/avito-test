@@ -8,7 +8,7 @@ export const CommentActionCreators = {
         type: CommentActionEnum.SET_CURRENT_COMMENT_TREE,
         payload: payload
     }),
-    fetchRootComments: (ids: [number]) => async (dispatch: AppDispatch) => {
+    fetchRootComments: (ids: number[]) => async (dispatch: AppDispatch) => {
         try {
             const rootCommentTree = []
             for (const id of ids) {

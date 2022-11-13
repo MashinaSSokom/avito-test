@@ -1,15 +1,23 @@
-import React, {FC} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import {useHistory} from "react-router-dom";
 import {useActions} from "../hooks/useActions";
 import {useTypedSelector} from "../hooks/useTypedSelector";
 import {Content} from "antd/es/layout/layout";
-import {Button, Card, Col, Row} from "antd";
+import {Button, Card, Col, Comment, Row, Tree} from "antd";
 import {calcDate} from "../store/utils/calcDate";
 
 const Story: FC = () => {
     const history = useHistory()
     const {currentStory} = useTypedSelector(state => state.storyReducer)
-
+    const {currentCommentsTree} = useTypedSelector(state => state.commentReducer)
+    const {fetchRootComments} = useActions()
+    useEffect(() => {
+        console.log('Стартовое древо комментариев', currentCommentsTree)
+        if (currentStory.kids) {
+            console.log('Будем искать корневые комментарии', currentStory.kids)
+            fetchRootComments(currentStory.kids)
+        }
+    }, [])
 
     return (
         <div>
@@ -37,6 +45,15 @@ const Story: FC = () => {
                             <p className={'story-card__descendants'}>Комментарии: {currentStory.descendants}</p>
                         </Card>
                     </Col>
+                    <Col span={24}>
+                        {currentCommentsTree.map(comment =>
+                            <Comment content={comment.text}
+                                     datetime={<span>{calcDate(comment.time)}</span>}
+                                     author={comment.by}
+                            >
+                            </Comment>
+                        )}
+                    </Col>
                 </Row>
             </Content>
         </div>
@@ -44,7 +61,6 @@ const Story: FC = () => {
 };
 
 export default Story;
-
 
 
 // TODO список комментариев в виде дерева
