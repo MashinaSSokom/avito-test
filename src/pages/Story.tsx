@@ -19,12 +19,17 @@ const Story: FC = () => {
     useEffect(() => {
         console.log('Стартовое древо комментариев', currentCommentsTree)
         if (currentStory.kids) {
-            console.log('Будем искать корневые комментарии', currentStory.kids)
             fetchRootComments(currentStory.kids)
         } else {
             setCurrentCommentTree([])
         }
     }, [])
+
+    const fetchComments = () => {
+        if (currentStory.kids) {
+            fetchRootComments(currentStory.kids)
+        }
+    }
     return (
         <Layout>
             <Content style={{
@@ -52,6 +57,12 @@ const Story: FC = () => {
                         </Card>
                     </Col>
                     <Col span={24}>
+                        {currentCommentsTree && currentStory.kids && !commentsIsLoading &&
+                            <Button
+                                style={{marginTop: '20px'}}
+                                onClick={() => fetchComments()}>
+                                Обновить комментарии
+                            </Button>}
                         {
                             (!commentsIsLoading &&
                                 currentCommentsTree.map(comment =>
@@ -81,7 +92,7 @@ const Story: FC = () => {
                                     </Comment>
                                 )
                             ) ||
-                            <p>Комментарии загружаются...</p>
+                            <p style={{marginTop: '20px'}}> Комментарии загружаются...</p>
                         }
                     </Col>
                 </Row>
