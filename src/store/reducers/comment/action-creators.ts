@@ -5,8 +5,10 @@ import {
     SetCurrentCommentTreeAction
 } from "./types";
 import {AppDispatch} from "../../index";
-import axios from "axios";
 import {IComment} from "../../../models/IComment";
+
+import axios from "axios";
+
 
 export const CommentActionCreators = {
     setCurrentCommentTree: (payload: object): SetCurrentCommentTreeAction => ({

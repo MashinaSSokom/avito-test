@@ -1,7 +1,9 @@
-import {IStory, IStoryIdList} from "../../../models/IStory";
+import {IStory} from "../../../models/IStory";
 import {AppDispatch, RootState} from "../../index";
 import {SetCurrentStoryAction, SetErrorAction, SetIsLoadingAction, SetStoriesAction, StoryActionEnum} from "./types";
+
 import axios from "axios";
+
 
 export const StoryActionCreators = {
     setIsLoading: (payload: boolean): SetIsLoadingAction => ({type: StoryActionEnum.SET_IS_LOADING, payload: payload}),
@@ -43,7 +45,7 @@ export const StoryActionCreators = {
             }
             dispatch(StoryActionCreators.setIsLoading(false))
         } catch (e) {
-            dispatch(StoryActionCreators.setError(`Произошла ошибка: ${e}` ))
+            dispatch(StoryActionCreators.setError(`Произошла ошибка: ${e}`))
         }
     }
 }
