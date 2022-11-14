@@ -36,6 +36,7 @@ export const CommentActionCreators = {
                     parent: comment.parent,
                     by: comment.by,
                     time: comment.time,
+                    deleted: comment.deleted,
                     kids: comment.kids
                 })
             }

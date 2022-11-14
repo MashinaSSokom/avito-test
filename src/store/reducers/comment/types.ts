@@ -11,6 +11,7 @@ export interface CommentItem {
     text: string,
     by: string,
     time: number,
+    deleted?: boolean,
     kids?: number[]
 }
 

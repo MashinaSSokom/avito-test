@@ -6,7 +6,7 @@ import {Button, Comment} from "antd";
 import {calcDate} from "../store/utils/calcDate";
 import {createMarkup} from "../store/utils/createMarkup";
 
-const Kid: FC<{ commentId: number }> = ({commentId}) => {
+const CommentKid: FC<{ commentId: number }> = ({commentId}) => {
     const [kidCommentItem, setKidCommentItem] = useState({} as CommentItem)
     const [kidFetched, setKidFetched] = useState(false)
     const [renderForParentIds, setRenderForParentIds] = useState([] as number[])
@@ -27,6 +27,7 @@ const Kid: FC<{ commentId: number }> = ({commentId}) => {
                     parent: comment.parent,
                     by: comment.by,
                     time: comment.time,
+                    deleted: comment.deleted,
                     kids: comment.kids
                 }
             }
@@ -36,7 +37,7 @@ const Kid: FC<{ commentId: number }> = ({commentId}) => {
     }
     return (
         <>
-            {kidFetched &&
+            {kidFetched && !kidCommentItem.deleted &&
                 <Comment content={<div dangerouslySetInnerHTML={createMarkup(kidCommentItem.text)}/>}
                          datetime={<span>{calcDate(kidCommentItem.time)}</span>}
                          author={kidCommentItem.by}
@@ -53,8 +54,8 @@ const Kid: FC<{ commentId: number }> = ({commentId}) => {
                         ||
                         (
                             kidCommentItem.kids.map(kidId =>
-                                <Kid key={kidId}
-                                     commentId={kidId}
+                                <CommentKid key={kidId}
+                                            commentId={kidId}
                                 />
                             )
                         ))
@@ -66,4 +67,4 @@ const Kid: FC<{ commentId: number }> = ({commentId}) => {
 }
 
 
-export default Kid;
+export default CommentKid;
