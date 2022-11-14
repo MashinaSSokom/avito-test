@@ -5,8 +5,7 @@ import {useTypedSelector} from "../hooks/useTypedSelector";
 import {Content} from "antd/es/layout/layout";
 import {Button, Card, Col, Comment, Layout, Row, Tree} from "antd";
 import {calcDate} from "../store/utils/calcDate";
-import Kid from "../components/Kid";
-import ReactDOM from "react-dom/client";
+import CommentKid from "../components/CommentKid";
 import {createMarkup} from "../store/utils/createMarkup";
 
 
@@ -85,8 +84,8 @@ const Story: FC = () => {
                                                 ||
                                                 (
                                                     comment.kids.map(kidId =>
-                                                        <Kid key={kidId}
-                                                             commentId={kidId}
+                                                        <CommentKid key={kidId}
+                                                                    commentId={kidId}
                                                         />
                                                     )
                                                 ))
