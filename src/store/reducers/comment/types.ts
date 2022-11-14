@@ -1,8 +1,7 @@
-import {IStory} from "../../../models/IStory";
-
 export interface CommentState {
     commentsIsLoading: boolean,
     currentCommentsTree: CommentItem[],
+    commentError: string
 }
 
 
@@ -18,7 +17,8 @@ export interface CommentItem {
 export enum CommentActionEnum {
     SET_CURRENT_COMMENT_TREE = 'SET_CURRENT_COMMENT_TREE',
     UPDATE_CURRENT_COMMENT_TREE = 'UPDATE_CURRENT_COMMENT_TREE',
-    SET_COMMENTS_IS_LOADING = 'SET_COMMENTS_IS_LOADING'
+    SET_COMMENTS_IS_LOADING = 'SET_COMMENTS_IS_LOADING',
+    SET_COMMENT_ERROR = 'SET_COMMENT_ERROR'
 }
 
 export interface SetCurrentCommentTreeAction {
@@ -37,8 +37,13 @@ export interface SetCommentsIsLoadingAction {
     payload: boolean;
 }
 
+export interface SetCommentErrorAction {
+    type: CommentActionEnum.SET_COMMENT_ERROR;
+    payload: string;
+}
 
 export type CommentAction =
     SetCurrentCommentTreeAction |
     UpdateCurrentCommentTreeAction |
-    SetCommentsIsLoadingAction
+    SetCommentsIsLoadingAction |
+    SetCommentErrorAction

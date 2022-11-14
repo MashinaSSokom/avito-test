@@ -1,4 +1,9 @@
-import {CommentActionEnum, SetCurrentCommentTreeAction, SetCommentsIsLoadingAction} from "./types";
+import {
+    CommentActionEnum,
+    SetCommentErrorAction,
+    SetCommentsIsLoadingAction,
+    SetCurrentCommentTreeAction
+} from "./types";
 import {AppDispatch} from "../../index";
 import axios from "axios";
 import {IComment} from "../../../models/IComment";
@@ -10,6 +15,10 @@ export const CommentActionCreators = {
     }),
     setIsLoading: (payload: boolean): SetCommentsIsLoadingAction => ({
         type: CommentActionEnum.SET_COMMENTS_IS_LOADING,
+        payload: payload
+    }),
+    setCommentError: (payload: string): SetCommentErrorAction => ({
+        type: CommentActionEnum.SET_COMMENT_ERROR,
         payload: payload
     }),
     fetchRootComments: (ids: number[]) => async (dispatch: AppDispatch) => {
@@ -31,8 +40,7 @@ export const CommentActionCreators = {
             dispatch(CommentActionCreators.setCurrentCommentTree(rootCommentTree))
             dispatch(CommentActionCreators.setIsLoading(false))
         } catch (e) {
-            //TODO добавить полее error и подгружать в него ошибку, если не удалось загрузить комментарии
-            console.log(e)
+            dispatch(CommentActionCreators.setCommentError(`Произошла ошибка: ${e}`))
         }
     },
     // fetchComment: (id: number) => async (dispatch: AppDispatch) => {
