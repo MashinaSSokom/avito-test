@@ -25,14 +25,10 @@ const Home: FC = () => {
         return () => clearInterval(interval)
     }, [fetchStories])
 
-    const fetch = () => {
-        fetchStories()
-    }
-
     return (
         <Content style={{padding: '0 50px'}}>
             <div className={'stories'}>
-                <Button onClick={fetch}
+                <Button onClick={() => fetchStories()}
                         style={{marginBottom: '20px',
                                 fontSize: '12px'
                         }}
