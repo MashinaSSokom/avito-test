@@ -17,7 +17,8 @@ export const StoryActionCreators = {
             const res = await axios.get<number[]>('https://hacker-news.firebaseio.com/v0/newstories.json')
             if (res.data) {
                 if (lastStoryInStore) {
-                    // Чтобы не делать каждый раз по 100 запросов находим на каком теперь месте последняя статья в стейте находится на бэке и делаем запросы до нее
+                    // Чтобы не делать каждый раз по 100 запросов находим на каком месте на бэке находится последняя статья в стейте
+                    // и делаем запросы только по более новым статьям
                     const lastStoryIndexInRes = res.data.indexOf(lastStoryInStore.id)
                     if (lastStoryIndexInRes > 0) {
                         for (let idx = 0; idx < lastStoryIndexInRes; idx++) {
@@ -42,7 +43,7 @@ export const StoryActionCreators = {
             }
             dispatch(StoryActionCreators.setIsLoading(false))
         } catch (e) {
-            dispatch(StoryActionCreators.setError('Произошла ошибка!'))
+            dispatch(StoryActionCreators.setError(`Произошла ошибка: ${e}` ))
         }
     }
 }
