@@ -9,6 +9,3 @@ export interface IComment {
     deleted?: boolean; //TODO учесть что может вернуться удаленный комментарий (иначе после подгрузки будет видна только дата без текста)
 }
 
-export interface ICommentIdList {
-    id: [number]
-}
