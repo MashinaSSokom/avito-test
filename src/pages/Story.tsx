@@ -67,7 +67,7 @@ const Story: FC = () => {
                         {
                             (!commentsIsLoading &&
                                 currentCommentsTree.map(comment =>
-                                    <Comment content={<div dangerouslySetInnerHTML={createMarkup(comment.text)}/>}
+                                    <Comment content={!comment.deleted ? <div dangerouslySetInnerHTML={createMarkup(comment.text)}/> : `Комментарий удален :(`}
                                              datetime={<span>{calcDate(comment.time)}</span>}
                                              author={comment.by}
                                              key={comment.id}>

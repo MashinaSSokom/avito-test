@@ -38,7 +38,7 @@ const CommentKid: FC<{ commentId: number }> = ({commentId}) => {
     return (
         <>
             {kidFetched && !kidCommentItem.deleted &&
-                <Comment content={<div dangerouslySetInnerHTML={createMarkup(kidCommentItem.text)}/>}
+                <Comment content={!kidCommentItem.deleted ? <div dangerouslySetInnerHTML={createMarkup(kidCommentItem.text)}/> : `Комментарий удален :(`}
                          datetime={<span>{calcDate(kidCommentItem.time)}</span>}
                          author={kidCommentItem.by}
                          key={kidCommentItem.id}
